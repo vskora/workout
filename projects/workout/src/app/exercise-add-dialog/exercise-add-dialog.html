@@ -1,0 +1,77 @@
+<h2 mat-dialog-title>Add exercise</h2>
+<mat-dialog-content>
+    @if (selectedExerciseDetail()) {
+        <h3>{{ selectedExerciseDetail()?.name }}</h3>
+        @for (image of selectedExerciseDetail()?.images; track $index) {
+            <img [src]="image" width="100">
+        }
+        <form>
+            <mat-radio-group aria-label="Select type" [formField]="exerciseForm.type">
+                <mat-radio-button value="reps">Reps</mat-radio-button>
+                <mat-radio-button value="time">Time</mat-radio-button>
+            </mat-radio-group>
+            <div>
+                @if (exerciseModel().type === 'reps' && exerciseForm.reps) {
+                    <mat-form-field>
+                        <button matIconButton matPrefix (click)="remove(exerciseForm.reps)">
+                            <mat-icon>remove</mat-icon>
+                        </button>
+                        <mat-label>Reps</mat-label>
+                        <input matInput type="number" [formField]="exerciseForm.reps">
+                        <button matIconButton matSuffix (click)="add(exerciseForm.reps)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </mat-form-field>
+                } @else if (exerciseForm.duration) {
+                    <mat-form-field>
+                        <button matIconButton matPrefix (click)="remove(exerciseForm.duration)">
+                            <mat-icon>remove</mat-icon>
+                        </button>
+                        <mat-label>Duration (seconds)</mat-label>
+                        <input matInput type="number" [formField]="exerciseForm.duration">
+                        <button matIconButton matSuffix (click)="add(exerciseForm.duration)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </mat-form-field>
+                }
+                <mat-form-field>
+                    <button matIconButton matPrefix (click)="remove(exerciseForm.rest)">
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                    <mat-label>Rest (seconds)</mat-label>
+                    <input matInput type="number" [formField]="exerciseForm.rest">
+                    <button matIconButton matSuffix (click)="add(exerciseForm.rest)">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </mat-form-field>
+                <mat-form-field>
+                    <button matIconButton matPrefix (click)="remove(exerciseForm.sets)">
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                    <mat-label>Sets</mat-label>
+                    <input matInput type="number" [formField]="exerciseForm.sets">
+                    <button matIconButton matSuffix (click)="add(exerciseForm.sets)">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </form>
+    } @else {
+        <mat-form-field class="search">
+            <mat-label>Search</mat-label>
+            <input matInput [(ngModel)]="search" />
+        </mat-form-field>
+        <mat-list role="list">
+            @for (exerciseDetail of filteredExerciseDetails(); track $index) {
+                <mat-list-item role="listitem" (click)="select(exerciseDetail)">
+                    {{ exerciseDetail.name }}
+                    <img matListItemAvatar [src]="exerciseDetail.images[0]">
+                </mat-list-item>
+            }
+        </mat-list>
+    }
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button matButton [mat-dialog-close]="undefined">Cancel</button>
+    <button matButton="filled" (click)="addToProgram()" [mat-dialog-close]="true" cdkFocusInitial>Add</button>
+</mat-dialog-actions>

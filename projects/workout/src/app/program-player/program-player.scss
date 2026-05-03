@@ -1,0 +1,27 @@
+.program-player-wrapper {
+    height: 100%;
+    padding: var(--spacer-md);
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+}
+
+.step-wrapper {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: var(--spacer-md) 0;
+
+    .name-wrapper,
+    .type-wrapper {
+        text-align: center;    
+    }
+
+    img {
+        width: 100%;
+    }
+}
+
+.actions-wrapper {
+    display: flex;
+    justify-content: end;
+}

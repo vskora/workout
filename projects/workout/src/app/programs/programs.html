@@ -1,0 +1,27 @@
+<div class="programs-wrapper">
+    <h1>Programs</h1>
+    <mat-list role="list">
+        @for (program of programs(); track $index) {
+            <mat-list-item role="listitem">
+                <div class="row">
+                    {{ program.name }}
+                    <div>
+                        <button matIconButton [navigate]="['programs', program.id]">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button matIconButton [navigate]="['programs', program.id, 'player']">
+                            <mat-icon>play_arrow</mat-icon>
+                        </button>
+                        <button matIconButton appConfirm (confirm)="delete(program.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </mat-list-item>
+            
+        }
+    </mat-list>
+</div>
+<button matFab class="floating-button" (click)="create()">
+    <mat-icon>add</mat-icon>
+</button>

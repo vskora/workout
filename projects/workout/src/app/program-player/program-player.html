@@ -1,0 +1,55 @@
+<div class="program-player-wrapper">
+    <h1>
+        <button matIconButton [navigate]="['programs']">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        {{ program()?.name }}
+    </h1>
+    <h2>{{ currentStepIndex() + 1 }} / {{ steps()?.length }}</h2>
+    <div class="step-wrapper">
+        @if (currentStep()?.exercise) {
+            <!-- exercise -->
+            <h3 class="name-wrapper">{{ currentStep()?.exercise?.details?.name }}</h3>
+
+            <h1 class="type-wrapper">
+                @if (currentStep()?.exercise?.type === 'reps') {
+                    {{ currentStep()?.exercise?.reps }} reps
+                }
+                
+                @if (currentStep()?.exercise?.type === 'time') {
+                    {{ formattedTimer() }} seconds
+                }
+            </h1>
+
+            <div>
+                @for (image of currentStep()?.exercise?.details?.images; track $index) {
+                    <img [src]="image">
+                }
+            </div>
+        } @else {
+            <!-- rest -->
+            <h3 class="name-wrapper">Rest</h3>
+            <h1 class="type-wrapper">{{ formattedTimer() }} seconds</h1>
+        }
+    </div>
+    <div class="actions-wrapper">
+        @if (!running()) {
+            <button
+                matButton="filled"
+                (click)="play()"
+            >
+                Play
+            </button>
+        } @else if (currentStepIndex() + 1 === steps()?.length) {
+            <button matButton="filled" [navigate]="['programs']">End</button>
+        } @else {
+            <button
+                matButton="filled"
+                [disabled]="!currentStep()?.exercise || currentStep()?.exercise?.type === 'time'"
+                (click)="next()"
+            >
+                Next
+            </button>
+        }
+    </div>
+</div>

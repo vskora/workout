@@ -1,0 +1,19 @@
+.program-wrapper {
+    padding: var(--spacer-md) var(--spacer-md) 0;
+}
+
+.floating-button {
+    position: fixed;
+    right: var(--spacer-md);
+    bottom: var(--spacer-md);
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.details {
+    display: flex;
+    gap: var(--spacer-md);
+}

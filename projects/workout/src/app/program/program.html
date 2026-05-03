@@ -1,0 +1,36 @@
+<div class="program-wrapper">
+    <h1>
+        <button matIconButton [navigate]="['programs']">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        {{ program()?.name }}
+    </h1>
+    <mat-list role="list">
+        @for (exercise of program()?.exercises; track $index) {
+            <mat-list-item role="listitem">
+                <div class="row">
+                    <div class="details">
+                        <span>Name: {{ exercise.details.name }}</span>
+                        <span>Type: {{ exercise.type }}</span>
+                        <span>
+                            @if (exercise.type === 'reps') {
+                                Reps: {{ exercise.reps }}
+                            } @else if (exercise.type === 'time') {
+                                Duration (seconds): {{ exercise.duration }}
+                            }
+                        </span>
+                        <span>Sets: {{ exercise.sets }}</span>
+                    </div>
+                    <div>
+                        <button matIconButton appConfirm (confirm)="delete(exercise.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </mat-list-item>
+        }
+    </mat-list>
+</div>
+<button matFab class="floating-button" (click)="add()">
+    <mat-icon>add</mat-icon>
+</button>
