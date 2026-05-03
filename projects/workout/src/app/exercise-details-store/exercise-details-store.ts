@@ -13,7 +13,7 @@ export class ExerciseDetailsStore {
 
   // https://github.com/yuhonas/free-exercise-db/tree/main
   exerciseDetailsResource = rxResource({
-    stream: () => this.#http.get<ExerciseDetail[]>(`${environment.exercises}/exercises.json`)
+    stream: () => this.#http.get<ExerciseDetail[]>(`${environment.exercises}`)
   });
   exerciseDetails = computed(() => this.exerciseDetailsResource.hasValue() ?
     this.exerciseDetailsResource.value() : []);

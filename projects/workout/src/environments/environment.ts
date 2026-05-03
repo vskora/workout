@@ -1,3 +1,3 @@
 export const environment = {
-    exercises: "/workout"
+    exercises: "https://vskora.github.io/workout/exercises.json"
 };

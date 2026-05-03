@@ -1,3 +1,3 @@
 export const environment = {
-    exercises: "/"
+    exercises: "/exercises/json"
 };
