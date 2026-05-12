@@ -3,9 +3,9 @@ import { ProgramStore } from '../program-store/program-store';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { Confirm } from '../confirm/confirm';
 import { Navigate } from '../navigate/navigate';
 import { ProgramPlayerStep } from '../program.model';
+import { ActivatedRouteSnapshot, CanDeactivate, GuardResult, MaybeAsync, RouterStateSnapshot } from '@angular/router';
 
 @Component({
   selector: 'app-program-player',
@@ -17,7 +17,7 @@ import { ProgramPlayerStep } from '../program.model';
   styleUrl: './program-player.scss',
   providers: [ProgramStore]
 })
-export class ProgramPlayer {
+export class ProgramPlayer implements CanDeactivate<ProgramPlayer> {
 
   readonly #programStore = inject(ProgramStore);
 
@@ -57,6 +57,15 @@ export class ProgramPlayer {
       return null;
 
     return steps[currentStepIndex];
+  });
+  nextStep = computed(() => {
+    const currentStepIndex = this.currentStepIndex();
+    const steps = this.steps();
+
+    if (!steps || currentStepIndex + 1 > steps.length)
+      return null;
+
+    return steps[currentStepIndex + 1];
   });
   currentStepEffect = effect(() => {
     const currentStep = this.currentStep();
@@ -115,5 +124,10 @@ export class ProgramPlayer {
 
   play() {
     this.running.set(true);
+  }
+  
+  canDeactivate(component: ProgramPlayer, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState: RouterStateSnapshot): MaybeAsync<GuardResult> {
+    alert('trying to deactivate');
+    return false;
   }
 }

@@ -12,7 +12,6 @@ export class Navigate {
 
   @HostListener('click')
   navigateTo() {
-    console.log('mouse event');
     this.#router.navigate(this.navigate());
   }
 }

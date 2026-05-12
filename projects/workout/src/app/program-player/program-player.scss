@@ -4,12 +4,14 @@
     box-sizing: border-box;
     display: grid;
     grid-template-rows: auto auto 1fr auto;
+    gap: var(--spacer-md);
 }
 
 .step-wrapper {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+    display: flex;
+    flex-direction: column;
     padding: var(--spacer-md) 0;
+    overflow: auto;
 
     .name-wrapper,
     .type-wrapper {
@@ -24,4 +26,8 @@
 .actions-wrapper {
     display: flex;
     justify-content: end;
+
+    button {
+        width: 100%;
+    }
 }

@@ -17,7 +17,7 @@
                 }
                 
                 @if (currentStep()?.exercise?.type === 'time') {
-                    {{ formattedTimer() }} seconds
+                    {{ formattedTimer() }}
                 }
             </h1>
 
@@ -29,13 +29,33 @@
         } @else {
             <!-- rest -->
             <h3 class="name-wrapper">Rest</h3>
-            <h1 class="type-wrapper">{{ formattedTimer() }} seconds</h1>
+
+            <h1 class="type-wrapper">{{ formattedTimer() }}</h1>
+
+            @if (nextStep()) {
+                <h3 class="name-wrapper">Next step</h3>
+
+                <h3 class="name-wrapper">{{ nextStep()?.exercise?.details?.name }}</h3>
+
+                <div>
+                    @for (image of nextStep()?.exercise?.details?.images; track $index) {
+                        <img [src]="image">
+                    }
+                </div>
+            }
+
+            <div>
+                @for (image of currentStep()?.exercise?.details?.images; track $index) {
+                    <img [src]="image">
+                }
+            </div>
         }
     </div>
     <div class="actions-wrapper">
         @if (!running()) {
             <button
-                matButton="filled"
+                matFab
+                extended
                 (click)="play()"
             >
                 Play
@@ -44,10 +64,12 @@
             <button matButton="filled" [navigate]="['programs']">End</button>
         } @else {
             <button
-                matButton="filled"
+                matFab
+                extended
                 [disabled]="!currentStep()?.exercise || currentStep()?.exercise?.type === 'time'"
                 (click)="next()"
             >
+                <mat-icon>arrow_forward</mat-icon>
                 Next
             </button>
         }
