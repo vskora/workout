@@ -6,12 +6,13 @@ import { MatListModule } from '@angular/material/list';
 import { Navigate } from '../navigate/navigate';
 import { ProgramPlayerStep } from '../program.model';
 import { ActivatedRouteSnapshot, CanDeactivate, GuardResult, MaybeAsync, RouterStateSnapshot } from '@angular/router';
+import { Confirm } from '../confirm/confirm';
 
 @Component({
   selector: 'app-program-player',
   imports: [
     MatIconModule, MatButtonModule, MatListModule,
-    Navigate
+    Navigate, Confirm
   ],
   templateUrl: './program-player.html',
   styleUrl: './program-player.scss',
@@ -124,6 +125,10 @@ export class ProgramPlayer implements CanDeactivate<ProgramPlayer> {
 
   play() {
     this.running.set(true);
+  }
+
+  end() {
+    this.running.set(false);
   }
   
   canDeactivate(component: ProgramPlayer, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState: RouterStateSnapshot): MaybeAsync<GuardResult> {

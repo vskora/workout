@@ -61,11 +61,30 @@
                 Play
             </button>
         } @else if (currentStepIndex() + 1 === steps()?.length) {
-            <button matButton="filled" [navigate]="['programs']">End</button>
-        } @else {
             <button
                 matFab
                 extended
+                (click)="end()"
+                [navigate]="['programs']"
+            >
+                End
+            </button>
+        } @else {
+            @if (currentStep()?.exercise?.type === 'time' || !currentStep()?.exercise) {
+                <button
+                    matFab
+                    extended
+                    appConfirm
+                    (confirm)="next()"
+                >
+                    <mat-icon>skip_next</mat-icon>
+                    Skip
+                </button>
+            }
+            <button
+                matFab
+                extended
+                class="next"
                 [disabled]="!currentStep()?.exercise || currentStep()?.exercise?.type === 'time'"
                 (click)="next()"
             >

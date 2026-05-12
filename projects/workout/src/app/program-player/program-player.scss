@@ -26,8 +26,13 @@
 .actions-wrapper {
     display: flex;
     justify-content: end;
+    gap: var(--spacer-md);
 
     button {
-        width: 100%;
+        flex: 1;
+    }
+
+    .next {
+        flex: 3;
     }
 }
