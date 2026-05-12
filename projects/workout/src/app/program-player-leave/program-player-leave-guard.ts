@@ -14,7 +14,9 @@ export const programPlayerLeaveGuard: CanDeactivateFn<ProgramPlayer> = (
     return true;
 
   const dialog = inject(MatDialog);
-  const dialogRef = dialog.open(ConfirmDialog);
+  const dialogRef = dialog.open(ConfirmDialog, {
+    disableClose: true
+  });
   
   return dialogRef.afterClosed();
 };
